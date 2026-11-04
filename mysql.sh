@@ -25,17 +25,17 @@ then
     exit 1
 fi
 
-dnf install mysql-server -y &>>$LOG_FILE_NAME
+dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Installing mysql-server"
 
-systemctl start mysqld &>>$LOG_FILE_NAME
+systemctl start mysqld &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Starting mysqld"
 
-systemctl enable mysqld &>>$LOG_FILE_NAME
+systemctl enable mysqld &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Enabling mysqld"
 
 
-mysql -h mysql.pavancloud5.online -uroot -pExpenseApp@1 -e 'show databases';
+mysql -h mysql.pavancloud5.online -uroot -pExpenseApp@1 -e 'show databases'; &>>$LOG_FILE
 if [ $? -ne 0 ]
   then
     echo "Mysql Root password setup not done"
@@ -51,12 +51,6 @@ else
 fi
 
 
-
-
-
-
-
-VALIDATE_FUNCTION $? "Setting up root password"
 
 
 
