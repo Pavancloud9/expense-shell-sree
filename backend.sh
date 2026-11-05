@@ -51,7 +51,7 @@ curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expen
 VALIDATE_FUNCTION $? "Downloading backend code"
 
 cd /app
-VALIDATE_FUNCTION $? "Moving to app directory"
+rm -rf /app/*
 
 unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE_FUNCTION $? "unzipping backend code"
@@ -74,5 +74,5 @@ VALIDATE_FUNCTION $? "daemon-reload"
 systemctl enable backend
 VALIDATE_FUNCTION "enabling backend"
 
-systemctl start backend
+systemctl restart backend
 VALIDATE_FUNCTION $? "starting backend"
