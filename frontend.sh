@@ -3,7 +3,7 @@
 LOGS_FOLDER_PATH="/var/log/expense-shell"
 LOG_FILE_NAME=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date "+%Y-%m-%d_%H:%M:%S")
-LOG_FILE="$LOGS_FOLDER/$LOG_FILE_NAME-$TIMESTAMP.log"
+LOG_FILE="$LOGS_FOLDER_PATH/$LOG_FILE_NAME-$TIMESTAMP.log"
 
 echo "Script started executing at $TIMESTAMP" &>>$LOG_FILE
 
