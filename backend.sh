@@ -25,10 +25,10 @@ then
     exit 1
 fi
 
-dnf module disable nodejs -y 
+dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Disabling nodejs"
 
-dnf module enable nodejs:20 -y 
+dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Enabling nodejs"
 
 dnf install nodejs -y &>>$LOG_FILE
