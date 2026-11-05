@@ -34,11 +34,11 @@ VALIDATE_FUNCTION $? "Enabling nodejs"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Installing nodejs"
 
-id expense
+id expense &>>$LOG_FILE
     if [ $? -ne 0 ]
 then
     echo "expense ID not exists"
-    useradd expense
+    useradd expense &>>$LOG_FILE
     VALIDATE_FUNCTION $? "creating expense user"
 else
     echo "expense user already exists...SKIPPING"
