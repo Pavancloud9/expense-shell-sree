@@ -25,33 +25,33 @@ then
     exit 1
 fi
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Disabling nodejs"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Enabling nodejs"
 
-dnf install nodejs -y
+dnf install nodejs -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Installing nodejs"
 
-useradd expense
+useradd expense 
 VALIDATE_FUNCTION $? "creating expense user"
 
-mkdir /app
+mkdir /app 
 VALIDATE_FUNCTION $? "Creating app directory"
 
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Downloading backend code"
 
 cd /app
 VALIDATE_FUNCTION $? "Moving to app directory"
 
-unzip /tmp/backend.zip
+unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE_FUNCTION $? "unzipping backend code"
 
-npm install
+npm install &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Installing dependencies"
 
-cp /home/ec2-user/expense-shell-sree/backend.service /etc/systemd/system/backend.service
+cp /home/ec2-user/expense-shell-sree/backend.service /etc/systemd/system/backend.service 
 VALIDATE_FUNCTION $? "copying service file"
 
