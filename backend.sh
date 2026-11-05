@@ -55,3 +55,17 @@ VALIDATE_FUNCTION $? "Installing dependencies"
 cp /home/ec2-user/expense-shell-sree/backend.service /etc/systemd/system/backend.service 
 VALIDATE_FUNCTION $? "copying service file"
 
+dnf install mysql -y
+VALIDATE_FUNCTION $? "Installing mysql-client"
+
+mysql -h msyql.pavancloud5.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
+VALIDATE_FUNCTION $? "setting up schemas"
+
+systemctl daemon-reload
+VALIDATE_FUNCTION $? "daemon-reload"
+
+systemctl enable backend
+VALIDATE_FUNCTION "enabling backend"
+
+systemctl start backend
+VALIDATE_FUNCTION $? "starting backend"
