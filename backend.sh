@@ -34,8 +34,15 @@ VALIDATE_FUNCTION $? "Enabling nodejs"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Installing nodejs"
 
-useradd expense 
-VALIDATE_FUNCTION $? "creating expense user"
+id expense
+    if [ $? -ne 0 ]
+then
+    echo "expense ID not exists"
+    useradd expense
+    VALIDATE_FUNCTION $? "creating expense user"
+else
+    echo "expense user already exists...SKIPPING"
+fi
 
 mkdir /app 
 VALIDATE_FUNCTION $? "Creating app directory"
@@ -55,7 +62,7 @@ VALIDATE_FUNCTION $? "Installing dependencies"
 cp /home/ec2-user/expense-shell-sree/backend.service /etc/systemd/system/backend.service 
 VALIDATE_FUNCTION $? "copying service file"
 
-dnf install mysql -y
+dnf install mysql -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Installing mysql-client"
 
 mysql -h msyql.pavancloud5.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
