@@ -65,7 +65,7 @@ VALIDATE_FUNCTION $? "copying service file"
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE_FUNCTION $? "Installing mysql-client"
 
-mysql -h msyql.pavancloud5.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h mysql.pavancloud5.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
 VALIDATE_FUNCTION $? "setting up schemas"
 
 systemctl daemon-reload
